@@ -1592,3 +1592,7 @@ func (u *userInterfaceImpl) setOrigWindowPos(x, y int) {
 func IsScreenTransparentAvailable() bool {
 	return true
 }
+
+func RunOnMainThread(f func()) {
+	theUI.t.Call(f)
+}
