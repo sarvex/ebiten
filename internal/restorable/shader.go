@@ -50,6 +50,10 @@ func (s *Shader) restore() {
 	s.shader = graphicscommand.NewShader(s.ir)
 }
 
+func (s *Shader) Unit() shaderir.Unit {
+	return s.ir.Unit
+}
+
 var (
 	NearestFilterShader *Shader
 	LinearFilterShader  *Shader
