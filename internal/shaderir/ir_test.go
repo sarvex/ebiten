@@ -166,7 +166,9 @@ func TestOutput(t *testing.T) {
 			Name:    "Empty",
 			Program: shaderir.Program{},
 			GlslVS:  glsl.VertexPrelude(glsl.GLSLVersionDefault),
-			GlslFS:  glsl.FragmentPrelude(glsl.GLSLVersionDefault),
+			GlslFS: glsl.FragmentPrelude(glsl.GLSLVersionDefault) + `
+
+out vec4 fragColor;`,
 		},
 		{
 			Name: "Uniform",
@@ -178,7 +180,8 @@ func TestOutput(t *testing.T) {
 			GlslVS: glslVertexPrelude + `
 uniform float U0;`,
 			GlslFS: glslFragmentPrelude + `
-uniform float U0;`,
+uniform float U0;
+out vec4 fragColor;`,
 		},
 		{
 			Name: "UniformStruct",
@@ -203,7 +206,8 @@ struct S0 {
 	float M0;
 };
 
-uniform S0 U0;`,
+uniform S0 U0;
+out vec4 fragColor;`,
 		},
 		{
 			Name: "Vars",
@@ -220,11 +224,12 @@ uniform S0 U0;`,
 			},
 			GlslVS: glslVertexPrelude + `
 uniform float U0;
-attribute vec2 A0;
-varying vec3 V0;`,
+in vec2 A0;
+out vec3 V0;`,
 			GlslFS: glslFragmentPrelude + `
 uniform float U0;
-varying vec3 V0;`,
+in vec3 V0;
+out vec4 fragColor;`,
 		},
 		{
 			Name: "Func",
@@ -241,6 +246,8 @@ void F0(void);
 void F0(void) {
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(void);
 
 void F0(void) {
@@ -269,6 +276,8 @@ void F0(in float l0, in vec2 l1, in vec4 l2, out mat4 l3);
 void F0(in float l0, in vec2 l1, in vec4 l2, out mat4 l3) {
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, in vec2 l1, in vec4 l2, out mat4 l3);
 
 void F0(in float l0, in vec2 l1, in vec4 l2, out mat4 l3) {
@@ -301,6 +310,8 @@ float F0(in float l0) {
 	return l0;
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 float F0(in float l0);
 
 float F0(in float l0) {
@@ -334,6 +345,8 @@ void F0(in float l0, out float l1) {
 	mat4 l3 = mat4(0);
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, out float l1);
 
 void F0(in float l0, out float l1) {
@@ -384,6 +397,8 @@ void F0(in float l0, out float l1) {
 	}
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, out float l1);
 
 void F0(in float l0, out float l1) {
@@ -430,6 +445,8 @@ void F0(in float l0, in float l1, out float l2) {
 	l2 = (l0) + (l1);
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, in float l1, out float l2);
 
 void F0(in float l0, in float l1, out float l2) {
@@ -472,6 +489,8 @@ void F0(in bool l0, in float l1, in float l2, out float l3) {
 	l3 = (l0) ? (l1) : (l2);
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in bool l0, in float l1, in float l2, out float l3);
 
 void F0(in bool l0, in float l1, in float l2, out float l3) {
@@ -519,6 +538,8 @@ void F0(in float l0, in float l1, out vec2 l2) {
 	l2 = F2(l0, l1);
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, in float l1, out vec2 l2);
 
 void F0(in float l0, in float l1, out vec2 l2) {
@@ -561,6 +582,8 @@ void F0(in float l0, in float l1, out float l2) {
 	l2 = min(l0, l1);
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, in float l1, out float l2);
 
 void F0(in float l0, in float l1, out float l2) {
@@ -600,6 +623,8 @@ void F0(in vec4 l0, out vec2 l1) {
 	l1 = (l0).xz;
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in vec4 l0, out vec2 l1);
 
 void F0(in vec4 l0, out vec2 l1) {
@@ -660,6 +685,8 @@ void F0(in float l0, in float l1, out float l2) {
 	}
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, in float l1, out float l2);
 
 void F0(in float l0, in float l1, out float l2) {
@@ -717,6 +744,8 @@ void F0(in float l0, in float l1, out float l2) {
 	}
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, in float l1, out float l2);
 
 void F0(in float l0, in float l1, out float l2) {
@@ -775,6 +804,8 @@ void F0(in float l0, in float l1, out float l2) {
 	}
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, in float l1, out float l2);
 
 void F0(in float l0, in float l1, out float l2) {
@@ -867,6 +898,8 @@ void F0(in float l0, in float l1, out float l2) {
 	}
 }`,
 			GlslFS: glslFragmentPrelude + `
+out vec4 fragColor;
+
 void F0(in float l0, in float l1, out float l2);
 
 void F0(in float l0, in float l1, out float l2) {
@@ -930,11 +963,11 @@ void F0(float l0, float l1, thread float& l2) {
 			},
 			GlslVS: glslVertexPrelude + `
 uniform float U0;
-attribute vec4 A0;
-attribute float A1;
-attribute vec2 A2;
-varying float V0;
-varying vec2 V1;
+in vec4 A0;
+in float A1;
+in vec2 A2;
+out float V0;
+out vec2 V1;
 
 void main(void) {
 	gl_Position = A0;
@@ -943,8 +976,9 @@ void main(void) {
 }`,
 			GlslFS: glslFragmentPrelude + `
 uniform float U0;
-varying float V0;
-varying vec2 V1;`,
+in float V0;
+in vec2 V1;
+out vec4 fragColor;`,
 		},
 		{
 			Name: "FragmentFunc",
@@ -1002,11 +1036,11 @@ varying vec2 V1;`,
 			},
 			GlslVS: glslVertexPrelude + `
 uniform float U0;
-attribute vec4 A0;
-attribute float A1;
-attribute vec2 A2;
-varying float V0;
-varying vec2 V1;
+in vec4 A0;
+in float A1;
+in vec2 A2;
+out float V0;
+out vec2 V1;
 
 void main(void) {
 	gl_Position = A0;
@@ -1015,8 +1049,9 @@ void main(void) {
 }`,
 			GlslFS: glslFragmentPrelude + `
 uniform float U0;
-varying float V0;
-varying vec2 V1;
+in float V0;
+in vec2 V1;
+out vec4 fragColor;
 
 vec4 F0(in vec4 l0, in float l1, in vec2 l2);
 
@@ -1029,7 +1064,7 @@ vec4 F0(in vec4 l0, in float l1, in vec2 l2) {
 }
 
 void main(void) {
-	gl_FragColor = F0(gl_FragCoord, V0, V1);
+	fragColor = F0(gl_FragCoord, V0, V1);
 }`,
 		},
 	}

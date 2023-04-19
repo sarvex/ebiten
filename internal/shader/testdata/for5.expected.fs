@@ -1,6 +1,7 @@
 uniform float U0;
 uniform float U1;
 uniform float U2;
+out vec4 fragColor;
 
 int F0(in int l0);
 vec4 F1(in vec4 l0);
@@ -29,5 +30,5 @@ vec4 F1(in vec4 l0) {
 }
 
 void main(void) {
-	gl_FragColor = F1(gl_FragCoord);
+	fragColor = F1(gl_FragCoord);
 }

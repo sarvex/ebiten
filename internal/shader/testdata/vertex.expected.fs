@@ -1,3 +1,4 @@
 uniform vec2 U0;
-varying vec2 V0;
-varying vec4 V1;
+in vec2 V0;
+in vec4 V1;
+out vec4 fragColor;
